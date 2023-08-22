@@ -1,0 +1,22 @@
+.input {
+    height: 35px;
+    width: 100%;
+    background: #F6F6F6;
+    border: 1px solid #D3D3D3;
+    padding: 9px 10px;
+    font-size: 18px;
+    color: #4B4B4B;
+    font-weight: 400;
+
+}
+
+.input::placeholder {
+    font-size: 18px;
+    color: #4B4B4B;
+    font-weight: 400;
+}
+
+.input__title {
+    margin: 15px 0 10px 0;
+}
+

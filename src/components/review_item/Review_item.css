@@ -1,0 +1,14 @@
+.comment__users {
+    margin-top: 30px;
+    border: 1px solid #E5E5E5;
+    padding: 35px 30px;
+}
+
+.comment__user-name {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.comment__user {
+    margin-top: 20px;
+}

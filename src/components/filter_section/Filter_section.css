@@ -1,0 +1,39 @@
+.filter_section{
+    margin-top: 30px;
+}
+.filter_section__wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 2px solid #E5E5E5;
+    padding:60px 155px 60px 70px;
+}
+.filter_section__line1{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.filter_section__line2{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 185px;
+    align-items: center;
+}
+.filter_section__text{
+    margin-bottom: 6px;
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.filter_section__checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: flex-end;
+}
+.in-stock{
+    margin-left: 12px
+}
