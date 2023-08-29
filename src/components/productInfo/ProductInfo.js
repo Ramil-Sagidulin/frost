@@ -54,7 +54,6 @@ function ProductInfo(props) {
     let list2Lvl = 'productInfo__list-lvl2';
 
     useEffect(() => {
-        setTimeout(() => {
             axios
                 .get('http://frost.runtime.kz/products/' + params.product_id,)
                 .then(response => {
@@ -75,7 +74,6 @@ function ProductInfo(props) {
                         }]
                     )
                 })
-        }, 0);
     }, [])
 
     function clickList1lvl(index) {
@@ -97,10 +95,15 @@ function ProductInfo(props) {
 
 
     let productInfo__list_1lvl = 'productInfo__list-1lvl'
+    if (productInfo.id===undefined){
+        return (
+            <div className='timeOut'>Ожидайте идет загрузка...</div>
+        )
+    }
+    else {
     return (
         <div className='productInfo'>
-
-            <div className='productInfo__wrapper wrapper'>
+            <div  className='productInfo__wrapper wrapper'>
                 <div className='productInfo_left'>
                     <div className='productInfo__gallery_big'>
                         <img src={imgBig} className='gallery__img1B'/>
@@ -192,7 +195,7 @@ function ProductInfo(props) {
                 <ModalProduct visibleProd={visible} close={close} product={productInfo.name}/>
             </div>
         </div>
-    )
+    )}
 }
 
 export default ProductInfo;
