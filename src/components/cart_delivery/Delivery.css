@@ -1,0 +1,10 @@
+
+.address__input-block{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 30px;
+}
+.delivery{
+    padding-bottom: 50px;
+}

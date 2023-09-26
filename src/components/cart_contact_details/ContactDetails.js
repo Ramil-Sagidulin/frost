@@ -1,8 +1,7 @@
-import Header from "../header/Header";
-import Footer from "../footer/Footer";
 import './ContactDetails.css'
 import Input from "../../ui/input/Input";
 import Button, {buttonStyle} from "../../ui/button/Button";
+import {Link} from "react-router-dom";
 
 function ContactDetails() {
     return (<div className='contactDetails wrapper'>
@@ -10,7 +9,7 @@ function ContactDetails() {
             <div className='cart__ordering-title'>Оформление заказа</div>
             <div className='cart__ordering-line'>
                 <div>Корзина</div>
-                <div className='cart__basket'>Контактые данные</div>
+                <div className='cart__blueBtn'>Контактые данные</div>
                 <div>Доставка</div>
                 <div>Завершение</div>
             </div>
@@ -36,7 +35,7 @@ function ContactDetails() {
                 </div>
             </div>
         </div>
-        <div className='contactDetails__button'><Button  buttonStyle={buttonStyle.primary} text={'Подтвердить'}/></div>
+        <div className='contactDetails__button'><Link to={'/delivery'}> <Button  buttonStyle={buttonStyle.primary} text={'Подтвердить'}/></Link></div>
 
     </div>)
 }

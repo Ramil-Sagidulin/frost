@@ -6,6 +6,9 @@ import Product_list from './components/product_list/Product_list';
 import ProductInfo from  './components/productInfo/ProductInfo'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Cart from "./components/cart/Cart";
+import ContactDetails from "./components/cart_contact_details/ContactDetails";
+import Delivery from "./components/cart_delivery/Delivery";
+import Completion from "./components/cartCompletion/Completion";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +26,18 @@ const router = createBrowserRouter([
             {
                 path: '/info/:product_id',
                 element: <ProductInfo/>
+            },
+            {
+                path: '/Contact-details',
+                element: <ContactDetails/>
+            },
+            {
+                path: '/delivery',
+                element: <Delivery/>
+            },
+            {
+                path: '/completion',
+                element: <Completion/>
             }
         ]
     },

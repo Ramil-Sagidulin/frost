@@ -1,11 +1,10 @@
-import Header from "../header/Header";
-import Footer from "../footer/Footer";
 import Dropdown from "../../ui/dropdown/Dropdown";
 import Button, { buttonStyle } from "../../ui/button/Button";
 import CartItem from "../cart_item/Cart_item";
 import './Cart.css'
 import { useEffect, useState } from "react";
 import Cart_item from "../cart_item/Cart_item";
+import {Link} from "react-router-dom";
 
 
 function Cart() {
@@ -66,9 +65,9 @@ function Cart() {
                 <div className='cart__ordering'>
                     <div className='cart__ordering-title'>Оформление заказа</div>
                     <div className='cart__ordering-line'>
-                        <div className='cart__basket'>Корзина</div>
-                        <div>Контактые данные</div>
-                        <div>Доставка</div>
+                        <div className='cart__blueBtn'>Корзина</div>
+                        <div className='cart__text-decoration'> Контактые данные</div>
+                        <div className='cart__text-decoration'>Доставка</div>
                         <div>Завершение</div>
                     </div>
                 </div>
@@ -76,10 +75,8 @@ function Cart() {
                     <div className='cart__body-title'>Корзина</div>
                     <div className='cart__body-description'>
                         <div className='cart__body-description_left'>Наименование товара</div>
-                        <div className='cart__body-description_right'>
                             <div className='cart__body-count'>Количество</div>
                             <div className='cart__body-price'>Цена</div>
-                        </div>
                     </div>
                     {cartProductItems.map((item, index) => {
                         return (
@@ -99,7 +96,7 @@ function Cart() {
                         </div>
                     </div>
                 </div>
-                <div className='cart__button'><Button buttonStyle={buttonStyle.primary} text={'Оформить заказ'} /></div>
+            <div className='cart__button'><Link to={'/Contact-details'} ><Button buttonStyle={buttonStyle.primary} text={'Оформить заказ'} /></Link></div>
             </div>
         </div>
     )

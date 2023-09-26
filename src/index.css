@@ -6,7 +6,12 @@
     border: none;
     box-sizing: border-box;
 }
-
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
 body {
     background:#F6F6F6;
     position: relative;

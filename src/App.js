@@ -1,6 +1,5 @@
 import './App.css';
 import Header from "./components/header/Header";
-import Product_list from "./components/product_list/Product_list";
 import Footer from './components/footer/Footer';
 import {Link, Outlet} from "react-router-dom";
 
@@ -9,8 +8,10 @@ function App() {
 
     return (
         <>
-            <Header/>
-            <Outlet/>
+            <div>
+                <Header/>
+                <Outlet/>
+            </div>
             <Footer/>
         </>
 
