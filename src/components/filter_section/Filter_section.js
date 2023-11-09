@@ -20,20 +20,19 @@ function Filter_section(props) {
         brandId: null,
         modelId: null,
         generationId: null,
-        available: null
+        available: null,
     })
-
 
     useEffect(() => {
 
         axios
-            .get('http://frost.runtime.kz/categories')
+            .get('https://frost.runtime.kz/api/categories')
             .then(response => {
                 let data = response.data;
                 setCategories([...categories, ...data.map(item => ({text: item.name, value: item.id}))]);
             });
         axios
-            .get('http://frost.runtime.kz/brands')
+            .get('https://frost.runtime.kz/api/brands')
             .then(response => {
                 let data = response.data;
                 setBrands([...brands, ...data.map(item => ({text: item.name, value: item.id}))]);
@@ -49,7 +48,7 @@ function Filter_section(props) {
         } else {
             setFilterParams({...filterParams, brandId: brand, modelId: undefined, generationId: undefined});
             axios
-                .get('http://frost.runtime.kz/models', {
+                .get('https://frost.runtime.kz/api/models', {
                     params: {
                         brandId: brand,
                     }
@@ -74,7 +73,7 @@ function Filter_section(props) {
         } else {
             setFilterParams({...filterParams, modelId: model, generationId: undefined});
             axios
-                .get('http://frost.runtime.kz/generations', {
+                .get('https://frost.runtime.kz/api/generations', {
                     params: {
                         modelId: model,
                     }
@@ -95,12 +94,14 @@ function Filter_section(props) {
     }
 
     useEffect(() => {
+        console.log(filterParams);
         props.onFilterChange(filterParams);
     }, [filterParams])
 
-    function availableItems(checked) {
-        setFilterParams({...filterParams, available: checked})
 
+    function availableItems(checked) {
+        console.log(checked)
+        setFilterParams({...filterParams, available: checked});
     }
 
     return (

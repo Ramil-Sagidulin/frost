@@ -2,7 +2,7 @@ import './Product_list.css'
 import Product_item from "../product_item/Product_item";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import PageButtons from "../../ui/PageButtons/PageButtons";
+import PageButtons from "../../ui/pageButtons/PageButtons";
 import Filter_section from "../filter_section/Filter_section";
 
 function Product_list(props) {
@@ -16,12 +16,12 @@ function Product_list(props) {
         brandId: undefined,
         modelId: undefined,
         generationId: undefined,
-        available: false
+        available: false,
     })
 
     useEffect(() => {
         axios
-            .get('http://frost.runtime.kz/products', {
+            .get('https://frost.runtime.kz/api/products', {
                 params: {
                     page: 1,
                     size: 6,
@@ -40,7 +40,7 @@ function Product_list(props) {
 
     function PageChange(page) {
         axios
-            .get('http://frost.runtime.kz/products', {
+            .get('https://frost.runtime.kz/api/products', {
                 params: {
                     page: page,
                     size: 6,
@@ -56,7 +56,6 @@ function Product_list(props) {
                 setPages({currentPage: data.currentPage, totalPages: data.totalPages})
             });
     }
-
     return (
         <div className='wrapper'>
             <Filter_section onFilterChange={function (filterParams) {
@@ -65,7 +64,7 @@ function Product_list(props) {
             <div className='item__list'>
                 {prodList.map(function (prod, index) {
                     return (
-                        <Product_item item_name={prod.name} item_price={prod.price} item_id={prod.id} key={index} product={prod.name} />
+                        <Product_item prodObj={prod} item_name={prod.name} item_price={prod.price} item_id={prod.id} key={index} product={prod.name} />
                     );
                 })}
             </div>
