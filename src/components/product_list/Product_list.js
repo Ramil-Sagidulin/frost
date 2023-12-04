@@ -16,7 +16,7 @@ function Product_list(props) {
         brandId: undefined,
         modelId: undefined,
         generationId: undefined,
-        available: false,
+        available: 0,
     })
 
     useEffect(() => {

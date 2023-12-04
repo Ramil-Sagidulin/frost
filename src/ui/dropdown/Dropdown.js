@@ -4,7 +4,6 @@ import './Dropdown.css'
 function Dropdown(props) {
 
 
-
     const [CloseOpenItems, setCloseOpenItems] = useState(false);
     let blockCategory = 'blockCategory'
     if (CloseOpenItems === true) {

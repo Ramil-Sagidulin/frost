@@ -94,13 +94,11 @@ function Filter_section(props) {
     }
 
     useEffect(() => {
-        console.log(filterParams);
         props.onFilterChange(filterParams);
     }, [filterParams])
 
 
     function availableItems(checked) {
-        console.log(checked)
         setFilterParams({...filterParams, available: checked});
     }
 

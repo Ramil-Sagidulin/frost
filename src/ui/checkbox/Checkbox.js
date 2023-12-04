@@ -1,8 +1,8 @@
 import './Checkbox.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Checkbox(props) {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(0);
 
 
     let checkbox = 'checkbox';
@@ -11,9 +11,17 @@ function Checkbox(props) {
     }
 
     function Check() {
-        setChecked(!checked);
-        props.availableItems(!checked);
+        if (checked === 0) {
+            setChecked(1);
+        } else (
+            setChecked(0)
+        )
+
     }
+
+    useEffect(() => {
+        props.availableItems(checked)
+    }, [checked]);
 
     return (
         <div onClick={Check} className={checkbox}></div>

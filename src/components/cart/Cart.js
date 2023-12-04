@@ -1,12 +1,10 @@
 import Dropdown from "../../ui/dropdown/Dropdown";
 import Button, {buttonStyle} from "../../ui/button/Button";
-import CartItem from "../cart_item/Cart_item";
 import './Cart.css'
 import {useEffect, useState} from "react";
 import Cart_item from "../cart_item/Cart_item";
 import {Link, useParams} from "react-router-dom";
 import axios from "axios";
-import product_item from "../product_item/Product_item";
 
 
 function Cart() {

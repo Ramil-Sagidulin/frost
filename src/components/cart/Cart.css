@@ -1,7 +1,6 @@
 .cart {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     justify-content: space-between;
 }
 
@@ -195,4 +194,15 @@
 }
 .cart__text-decoration{
     text-decoration: none;
+}
+.cart_empty{
+    margin: 50px auto;
+    width: 1170px;
+    display: flex;
+    color:#000000;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: 600;
+    background-color: #FFFFFF;
+    padding:40px;
 }

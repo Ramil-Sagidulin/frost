@@ -25,7 +25,7 @@ function ContactDetails() {
                         <Input title={'Телефон'}/>
                     </div>
                 </div>
-                <div className='line'></div>
+                <div className='line-vertical'></div>
                 <div className='contactDetails__block-right'>
                     <div className='block-input__item'>
                         <Input title={'E-mail'}/>

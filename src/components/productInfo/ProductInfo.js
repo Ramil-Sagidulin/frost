@@ -55,7 +55,7 @@ function ProductInfo(props) {
 
     useEffect(() => {
             axios
-                .get('http://frost.runtime.kz/products/' + params.product_id,)
+                .get('https://frost.runtime.kz/api/products/' + params.product_id,)
                 .then(response => {
                     let data = response.data;
                     setProductInfo({
@@ -68,6 +68,7 @@ function ProductInfo(props) {
                         name: data.name,
                         price: data.price,
                     })
+                    console.log(data);
                     setList1lvl([{
                             name: data.brand.name,
                             arr: [{name: data.model.name, arr: [{name: data.generation.name},]}],
@@ -75,7 +76,6 @@ function ProductInfo(props) {
                     )
                 })
     }, [])
-
     function clickList1lvl(index) {
         setList1lvl(function (prev) {
             let newS = [...prev];

@@ -1,0 +1,9 @@
+.block-errors{
+    margin-top: 10px;
+    margin-bottom: -5px;
+    max-width: 600px;
+    display: flex;
+    font-size: 14px;
+    color: red;
+    width: 100%;
+}

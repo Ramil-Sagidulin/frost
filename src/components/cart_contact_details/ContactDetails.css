@@ -36,7 +36,7 @@
     width: 50%;
     padding-left: 70px;
 }
-.line{
+.line-vertical{
     width: 1px;
     display: flex;
     background-color: #D3D3D3;
