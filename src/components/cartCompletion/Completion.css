@@ -1,4 +1,19 @@
 .completion__block{
+    margin-top: 36px;
     display: flex;
     justify-content: space-between;
+    color: #727272;
+    font-size: 18px;
+    font-weight: 600;
+    gap:30px;
+}
+.completion__block-item-link{
+    color: #2156BD;
+    min-width: 308px;
+}
+.completion__wrapp{
+margin: 30px 0;
+padding: 64px 56px 67px 56px;
+background-color: #FFFFFF;
+border: 1px solid #E5E5E5;
 }

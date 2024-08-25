@@ -1,11 +1,31 @@
-import Input from "../../ui/input/Input";
-import Button, { buttonStyle } from "../../ui/button/Button";
+import Button, {buttonStyle} from "../../ui/button/Button";
 import './UserPage.css'
-import { useContext, useEffect, useLayoutEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
+
 function Orders() {
-    const [user, login, logout] = useContext(AuthContext);
+    const [ordersCart, setOrdersCart] = useState([]);
+    useEffect(() => {
+        axios.get('/orders').then(response => {
+            setOrdersCart(response.data)
+        })
+    }, [])
+console.log(ordersCart);
+    function dateToString(unixTime) {
+        let date = new Date(unixTime);
+        return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
+    };
+    function Price(price){
+        let grandTotal=null;
+        console.log(price);
+        for (const item of price) {
+            console.log(item);
+            grandTotal=grandTotal+(item.product.price*item.count);
+        }
+        return grandTotal;
+    }
+
     return (
         <div className='wrapper userPage'>
             <div className='userPage__title'>Личный кабинет</div>
@@ -24,18 +44,33 @@ function Orders() {
                         <div>Стоимость</div>
                     </div>
                     <div className='line'></div>
-                    <div className='orders__product-item'>
-                        <div className='order-number'>№100001</div>
-                        <div className='order-name'>Компрессор кондиционера Hyundai Tucson, Kia Sportage 97701-2E300FD; 0935-03se;  Kia Sportage 97701-2E300FD; 0935-02</div>
-                        <div className='order-date'>06.07.2019</div>
-                        <div className='order-price'>206 998 тг</div>
-                    </div>
+                    {ordersCart.map(function (order, index) {
+                        return (
+                            <div className='orders__product-item'>
+                                <div className='order-number' index={order.id}>№{order.id}</div>
+                                <div className='orders_nameBlock'>
+                                    {order.items.map(function (orderItem) {
+                                        return (
+                                            <div className='order-name' index={orderItem.product.id}>{orderItem.product.name}
+                                            </div>
+
+                                        )
+                                    })}
+                                </div>
+                                <div className='order-date'>{dateToString(order.created_at)}</div>
+                                <div className='order-price'>{Price(order.items)}{Price}</div>
+                            </div>
+                        )
+                    })}
+
                     <div className='line'></div>
 
                 </div>
             </div>
-            <div className="userPage__btn"><Button buttonStyle={buttonStyle.primary} text={'Сохранить изменения'} /></div>
+            {/* <div className="userPage__btn"><Button buttonStyle={buttonStyle.primary} text={'Сохранить изменения'}/>
+            </div> */}
         </div>
     )
 }
+
 export default Orders;

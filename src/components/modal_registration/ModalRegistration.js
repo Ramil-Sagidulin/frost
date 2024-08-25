@@ -1,9 +1,11 @@
 import Modal from "../Modal/Modal";
 import Input from "../../ui/input/Input";
-import Button, {buttonStyle} from "../../ui/button/Button";
+import Button, { buttonStyle } from "../../ui/button/Button";
 import axios from "axios";
 import './ModalRegistration.css'
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../features/auth/authSlice";
 
 function ModalRegistration(props) {
     let [firstName, setFirstName] = useState('');
@@ -11,7 +13,8 @@ function ModalRegistration(props) {
     let [email, setEmail] = useState('');
     let [passwordState, setPasswordState] = useState('');
     let [repeatPassword, SetRepeatPassword] = useState('');
-    let [errors,setErrors]=useState([]);
+    let [errors, setErrors] = useState([]);
+    const dispatch = useDispatch();
     function Registration() {
         if (passwordState === repeatPassword) {
             axios.post('https://frost.runtime.kz/api/registration', {
@@ -20,12 +23,13 @@ function ModalRegistration(props) {
                 email: email,
                 password: passwordState,
             }).then((res) => {
+                dispatch(signIn(email, passwordState));
                 props.close()
-                    setFirstName('');
-                    setLastName('');
-                    setEmail('');
-                    setPasswordState('');
-                    SetRepeatPassword('');
+                setFirstName('');
+                setLastName('');
+                setEmail('');
+                setPasswordState('');
+                SetRepeatPassword('');
             }).catch(error => {
                 let response = error.response;
                 if (response.status === 400) {
@@ -35,9 +39,9 @@ function ModalRegistration(props) {
         } else {
             alert('Пароли не совподают');
         }
-    } 
-    useEffect(()=>{
-        if(props.visible===false){
+    }
+    useEffect(() => {
+        if (props.visible === false) {
             setFirstName('');
             setLastName('');
             setEmail('');
@@ -45,27 +49,30 @@ function ModalRegistration(props) {
             SetRepeatPassword('');
             setErrors('');
         }
-    },[props.visible])
+    }, [props.visible])
 
     return (
-        <Modal visible={props.visible} close={props.close}>
-            <div className='modal__title'>Создание учётной записи</div>
-            <div className='block-errors' >{errors.first_name} {errors.last_name}  </div>
-            <div className='modal__name'>
-                <Input placeholder={'Имя'} value={firstName} onChange={(event) => setFirstName(event.target.value)}/>
-                <Input placeholder={'Фамилия'} value={lastName} onChange={(event) => setLastName(event.target.value)}/>
-            </div>
-            <div className='block-errors' >{errors.email}</div>
-            <Input placeholder={'Адрес электронной почты'} value={email}
-                   onChange={(event) => setEmail(event.target.value)}/>
-                   <div className='block-errors' >{errors.password}</div>
-            <Input placeholder={'Пароль'} value={passwordState} onChange={(event) => setPasswordState(event.target.value)}/>
-            <Input placeholder={'Повторите пароль'} value={repeatPassword}
-                   onChange={(event) => SetRepeatPassword(event.target.value)}/>
-            <Button style={{marginTop: '50px', fontWeight: '400'}} buttonStyle={buttonStyle.primary}
-                    text={'Зарегистрироваться'} onClick={Registration}/>
-            <div className='modal__link gray'>Войти в существующую учётную запись</div>
-        </Modal>
+        <div>
+            
+            <Modal visible={props.visible} close={props.close}>
+                <div className='modal__title'>Создание учётной записи</div>
+                <div className='block-errors' >{errors.first_name} {errors.last_name}  </div>
+                <div className='modal__name'>
+                    <Input placeholder={'Имя'} value={firstName} onChange={(event) => setFirstName(event.target.value)} />
+                    <Input placeholder={'Фамилия'} value={lastName} onChange={(event) => setLastName(event.target.value)} />
+                </div>
+                <div className='block-errors' >{errors.email}</div>
+                <Input placeholder={'Адрес электронной почты'} value={email}
+                    onChange={(event) => setEmail(event.target.value)} />
+                <div className='block-errors' >{errors.password}</div>
+                <Input placeholder={'Пароль'} value={passwordState} onChange={(event) => setPasswordState(event.target.value)} />
+                <Input placeholder={'Повторите пароль'} value={repeatPassword}
+                    onChange={(event) => SetRepeatPassword(event.target.value)} />
+                <Button style={{ marginTop: '50px', fontWeight: '400' }} buttonStyle={buttonStyle.primary}
+                    text={'Зарегистрироваться'} onClick={Registration} />
+                <div className='modal__link gray' onClick={() => {props.close(); document.getElementById('signIn-button').click()}}>Войти в существующую учётную запись</div>
+            </Modal>
+        </div>
     )
 }
 

@@ -1,0 +1,30 @@
+{
+    "token_type": "Bearer",
+    "expires_in": 31622400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiZGQ0NDlhYmMxZDYzMGJhYzdkZDQzYzA1ODc5ZDViNTA1NDE1NDljOWU3YzkxZTI3NDU3Mjk4ZjEwMWYxZTRkNGU4MzIwOGJjMzY1NjliYTUiLCJpYXQiOjE2OTc1NTQ0NjYuMDk3MDYyMSwibmJmIjoxNjk3NTU0NDY2LjA5NzA2NTksImV4cCI6MTcyOTE3Njg2Ni4wODk0OTU5LCJzdWIiOiIxMSIsInNjb3BlcyI6W119.hAHA_qItNNfzyIhDEooMpH3j5IZZYyOzYKi7Qc33qOllp8-RQokwSg7tbMSE2AlD-Mo5w2W4sc2U4YuPr-lX6RvL9pMTiUDUEYO1M2bhqTNDuVKfh0GDKEZsOG7xkIX0tlLm-OooDu_g9xzbUMekjfg18rl0BWL2UJtW6NpyRPmEnMJE42K4Ob-_RJaXNn2_6Uq92WS4FWkKsFZtmmYA0pvs8s7JkdIV9aG_rbZ1oln1yoxerXNtjI_1IIu5folTOQOaBBOFBtJV5pPDwietSVFsbmOY1vkLc1X9mhLgCwjtVey6goX4k4rg1Y_3peCNGYeJBV8gOf18IgtcIhcZdy659xoBrN1Gc5GKyF2MTi2tWlpjJOp3ASeShjM5qg9-a6cmHZXP6qX9bTXDdW2HzCmTqNbhdNi1E_l43FfoD7F5Lb6m0_VhiIPJVqmkAg5iKsfbP7GnfyX8drn1KJJUjENsUNkp2Wgbl2WYM2L_uy9Vq3SN305VCZlz6Thun-qcG6u3RYW9wnGBuek6YI1TXbHIK7c4_dZDzheyQbxWfilR6t4N0rQVRRVWAA1kKqADDi7UfVJ46NUV9HcqaB7H229e97Qm1O1Hhh9DFT7saXXLKzF55OJ7h6QyftsmeC5jsDOTy926tXMh3n8rtX0fYi6eOYKXhEnjj-FEDxGyPFQ",
+    "refresh_token": "def502009a1e421af74585fdbae8f42135779e3f15a6d519f0438b7cb7f9b8f2f577cbeb11daee4191ba11e3534dc82cfd153d2501fec26a2b688a6298e09e130b7d1ff9f10a5c1ce93780604121d06466c7a1d132db0095720fc4d898b79be63b803682df85d2aa0445436adfedd05878491dd64fb3e367545194470a95eac814a8bdfe8487ffac398671e4ee1851b6bd7566dc23228211f757c657eb41e5e266eabf23653e1bcc7f5bf81678dc24df0cf052a8fec68796622683e611f45601183d69285a36aa26e53581ebb07819cb4510f3e8894e05c0c8d64e36816ff410e5b83f8aea6cd163033779ce620717662fce9884f369c0047020bc414eada38f5318444bb02af099615a1a1e70e4975fed864885e83e00b34805d66113591a685cec9446e59d2e84e8e2bfaf844ac09a03f962709fd2ef91b827feef0e659ea3f3c78e6b0f277ee557ed315503bfba3d7cf57e596a55a8f3767a21df2150794c1931"
+}
+1) `client_id` - 2.
+2) `client_secret` - XxVdySeTHQ6dKC8hnCh8rnpKL0twqNE9303Wc6Xe.
+
+`norris06@example.com` -> `password`.
+`mzulauf@example.net` -> `password`.
+`aliyah.mayert@example.com` -> `password`.
+
+
+'https://frost.runtime.kz/api/cart'-информация о содержимом корзины.
+'https://frost.runtime.kz/api/cart/add?productId=...'-добавляет товар по указанному id.
+'https://frost.runtime.kz/api/cart/increase?productId=...'-увеличивает количество указанного id на единицу.
+'https://frost.runtime.kz/api/cart/decrease?productId=...'-уменьшает количество указанного id на единицу.
+'https://frost.runtime.kz/api/cart/delete?productId=...'-удаляет указанный по id товар из корзины
+
+`https://frost.runtime.kz/api/registration` (POST):
+* `first_name` - имя.
+* `last_name` - фамилия.
+* `email` - почтовый адрес.
+* `password` - пароль.
+Если сервер отвечает статусом 200, запрос успешно выполнен и пользователь зарегистрирован.
+
+`https://frost.runtime.kz/api/auth/token`
+* `username`
+* `password`

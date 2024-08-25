@@ -1,76 +1,48 @@
 import './Product_list.css'
 import Product_item from "../product_item/Product_item";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useEffect} from "react";
 import PageButtons from "../../ui/pageButtons/PageButtons";
 import Filter_section from "../filter_section/Filter_section";
+import {useDispatch, useSelector} from "react-redux";
+import {ChangePage, setModelsState, setFilter,setGenerationsState} from "../../features/filter/filterSlice";
+function Product_list() {
 
-function Product_list(props) {
 
+    const products = useSelector(state => state.filter.productsPage);
+    const pagesState = useSelector(state => state.filter.pages);
+    const filter = useSelector(state => state.filter.filter)
+    const dispatch = useDispatch();
 
-
-
-    const [prodList, setProdList] = useState([]);
-    const [pages, setPages] = useState({currentPage: 0, totalPages: 0,})
-    const [filter, setFilter] = useState({
-        brandId: undefined,
-        modelId: undefined,
-        generationId: undefined,
-        available: 0,
-    })
+    useEffect(()=>{
+        dispatch(setFilter({brandId: undefined, modelId: undefined, generationId: undefined, available: 0}))
+        dispatch(setModelsState([{ text: 'Все марки', value: null }]));
+        dispatch(setGenerationsState([{text: 'Все поколения', value: null}]))
+    },[])
 
     useEffect(() => {
-        axios
-            .get('https://frost.runtime.kz/api/products', {
-                params: {
-                    page: 1,
-                    size: 6,
-                    brandId: filter.brandId ,
-                    modelId: filter.modelId ,
-                    generationId: filter.generationId ,
-                    available: filter.available,
-                }
-            })
-            .then(response => {
-                let data = response.data;
-                setProdList(data.items);
-                setPages({currentPage: data.currentPage, itemsPerPage: data.itemsPerPage, totalPages: data.totalPages})
-            });
+        dispatch(ChangePage(1, filter));
+        
     }, [filter]);
 
     function PageChange(page) {
-        axios
-            .get('https://frost.runtime.kz/api/products', {
-                params: {
-                    page: page,
-                    size: 6,
-                    brandId: filter.brandId === 0 ? null : filter.brandId,
-                    modelId: filter.modelId === 0 ? null : filter.modelId,
-                    generationId: filter.generationId === 0 ? null : filter.generationId,
-                    available: filter.available,
-                }
-            })
-            .then(response => {
-                let data = response.data;
-                setProdList(data.items);
-                setPages({currentPage: data.currentPage, totalPages: data.totalPages})
-            });
+        dispatch(ChangePage(page, filter))
+
     }
+
     return (
         <div className='wrapper'>
-            <Filter_section onFilterChange={function (filterParams) {
-                setFilter(filterParams);
-            }}/>
+            <Filter_section/>
             <div className='item__list'>
-                {prodList.map(function (prod, index) {
+                {products.map(function (prod, index) {
                     return (
-                        <Product_item prodObj={prod} item_name={prod.name} item_price={prod.price} item_id={prod.id} key={index} product={prod.name} />
+                        <Product_item prodObj={prod} item_name={prod.name} item_price={prod.price} item_id={prod.id}
+                                      key={index} product={prod.name}/>
                     );
                 })}
             </div>
             <PageButtons
-                totalPages={pages.totalPages}
-                currentPage={pages.currentPage}
+                totalPages={pagesState.totalPages}
+                currentPage={pagesState.currentPage}
                 onPageChange={PageChange}
             />
         </div>

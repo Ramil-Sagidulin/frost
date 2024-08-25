@@ -3,24 +3,25 @@ import Button, {buttonStyle} from "../../ui/button/Button";
 import './Cart.css'
 import {useEffect, useState} from "react";
 import Cart_item from "../cart_item/Cart_item";
-import {Link, useParams} from "react-router-dom";
-import axios from "axios";
+import {Link} from "react-router-dom";
+import {CheckCartItems, deleteItem} from "../../features/cart/cartSlice";
+import {deleteCartItem} from "../../features/cart/cartAPI";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function Cart() {
     const [paymants, setPaymants] = useState([{text: 'Выберите способ оплаты'}, {text: 'Наличными при получении'}, {text: 'Оплата картой'}]);
-    const [cartProductItems, setCartProductItems] = useState([])
     const [totalPrice, setTotalPrice] = useState(0);
+    const cartState = useSelector(state => state.cart);
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios.get('https://frost.runtime.kz/api/cart').then(function (res) {
-            setCartProductItems(res.data.items)
-        })
-    }, [])
+        dispatch(CheckCartItems());
+        }, [dispatch])
 
 
     function Total() {
         setTotalPrice(0)
-        for (let item of cartProductItems) {
+        for (let item of cartState.cartItem) {
             setTotalPrice((prev) => {
                 let newState = (prev);
                 newState = newState + (item.count * item.product.price);
@@ -32,30 +33,16 @@ function Cart() {
 
     useEffect(() => {
         Total();
-    }, [cartProductItems])
-
-    function ChangeCount(index, count) {
-        setCartProductItems(function (prev) {
-            let newState = [...prev];
-            newState[index].count = count;
-            Total();
-            return newState;
-        })
-    }
+    }, [cartState.cartItem])
 
     function DelItem(index) {
-        axios.get('https://frost.runtime.kz/api/cart/delete?productId=' + cartProductItems[index].product.id )
+        deleteCartItem(cartState.cartItem[index].product.id)
             .then(() => {
-                setCartProductItems(function (prev) {
-                    let newState = [...prev];
-                    newState.splice(index, 1);
-                    return newState;
-                })
+                dispatch(deleteItem(cartState.cartItem[index].product.id))
             });
-
     }
 
-    if (cartProductItems.length !== 0) {
+    if (cartState.cartItem.length !== 0) {
         return (
             <div className='cart'>
                 <div className='wrapper cart__wrapper'>
@@ -75,14 +62,14 @@ function Cart() {
                             <div className='cart__body-count'>Количество</div>
                             <div className='cart__body-price'>Цена</div>
                         </div>
-                        {cartProductItems.map((item, index) => {
+
+                        {cartState.cartItem.map((item, index) => {
                             return (
                                 <Cart_item item_id={item.product.id} item_name={item.product.name}
                                            item_price={item.product.price}
-                                           item_aricul={item.product.code} item_count={item.count}
-                                           key={item.product.id} onChangeCount={function (count) {
-                                    ChangeCount(index, count)
-                                }} delItem={function () {
+                                           item_aricul={item.product.code}
+                                           item_count={item.count}
+                                           key={item.product.id} delItem={function () {
                                     DelItem(index)
                                 }}/>)
                         })}
@@ -104,8 +91,7 @@ function Cart() {
                 </div>
             </div>
         )
-    }
-    else{
+    } else {
         return (<div className='cart_empty'>Корзина пуста</div>)
     }
 }

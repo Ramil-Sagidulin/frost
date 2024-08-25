@@ -151,14 +151,21 @@
     display: flex;
     width: 660px;
     margin-top: 20px;
+    gap: 5px;
 }
 
 .order-number {
     width: 20%;
 }
 
-.order-name {
-    width: 45%;
+.orders_nameBlock {
+    margin-top: -10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-name{
+    margin-top: 10px;
 }
 
 .order-date {
@@ -172,6 +179,7 @@
     display: flex;
     justify-content: center;
 }
-.dropdown-title{
+
+.dropdown-title {
     margin: 15px 0 10px 0;
 }

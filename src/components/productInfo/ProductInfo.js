@@ -13,14 +13,19 @@ import useModal from "../../hooks/useModal";
 import ModalProduct from "../ModalProduct/ModalProduct";
 import ModalAuthorization from "../modal_authorization/ModalAuthorization";
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-
+// `/reviews` (POST)
+// * `product_id`
+// * `review`
 
 function ProductInfo(props) {
     const [productImg, setProductImg] = useState([imgItem1, imgItem2, imgItem3, imgItem4]);
     const [imgBig, setImgBig] = useState(imgItem1);
     const [visible, open, close] = useModal()
     const [visibleLogin, openLogin, closeLogin] = useModal()
+
+
     function clickImg(index) {
         setImgBig(function () {
             let newState;
@@ -68,7 +73,6 @@ function ProductInfo(props) {
                         name: data.name,
                         price: data.price,
                     })
-                    console.log(data);
                     setList1lvl([{
                             name: data.brand.name,
                             arr: [{name: data.model.name, arr: [{name: data.generation.name},]}],
@@ -92,6 +96,7 @@ function ProductInfo(props) {
             return newS;
         });
     }
+
 
 
     let productInfo__list_1lvl = 'productInfo__list-1lvl'
@@ -180,19 +185,16 @@ function ProductInfo(props) {
                                 <div className='productInfo__priceBlock-cityItem'>г. Астана</div>
                                 <div className='productInfo__priceBlock-cityItem'>г. Алматы</div>
                             </div>
-                            <Button buttonStyle={buttonStyle.primary} text={'Купить'} onClick={open}/>
+                            {productInfo.available ?<Button buttonStyle={buttonStyle.primary} text={'Купить'} onClick={open}/>:''}
                         </div>
                     </div>
                     <div className='productInfo__comment'>
                         <div className='comment__title'>Отзывы</div>
-                        <div className='comment__autorization'>Чтобы оставить отзыв <div
-                                                                                       className='comment__autorization-link' onClick={openLogin}> войдите
-                            на сайт</div></div>
                         <Review_item comment={params.product_id}/>
                         <ModalAuthorization visible={visibleLogin} close={closeLogin}/>
                     </div>
                 </div>
-                <ModalProduct visibleProd={visible} close={close} product={productInfo.name}/>
+                <ModalProduct visibleProd={visible} close={close} product={productInfo} modalProduct_count={props.count}/>
             </div>
         </div>
     )}

@@ -2,104 +2,60 @@ import Dropdown from "../../ui/dropdown/Dropdown";
 import './Filter_section.css'
 import Checkbox from "../../ui/checkbox/Checkbox";
 import {useEffect, useState} from "react";
-import axios from "axios";
+import {
+    initializeFilter,
+    loadGenerationsbyModel,
+    loadModelsByBrand,
+    setFilter,
+    setGenerationsState,
+    setModelsState
+} from "../../features/filter/filterSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 function Filter_section(props) {
+    const brands = useSelector(state => state.filter.brands);
+    const models = useSelector(state => state.filter.models);
+    const generations = useSelector(state => state.filter.generations);
     const [categories, setCategories] = useState([{text: 'Все категории', value: null}]);
-
-
-    const [brands, setBrands] = useState([{text: 'Все марки', value: null}]);
-
-
-    const [models, setModels] = useState([{text: 'Все модели', value: null}])
-
-
-    const [generations, setGenerations] = useState([{text: 'Все поколения', value: null}])
-
-    const [filterParams, setFilterParams] = useState({
-        brandId: null,
-        modelId: null,
-        generationId: null,
-        available: null,
-    })
-
+    const filter = useSelector(state => state.filter.filter);
+    const dispatch = useDispatch();
     useEffect(() => {
-
-        axios
-            .get('https://frost.runtime.kz/api/categories')
-            .then(response => {
-                let data = response.data;
-                setCategories([...categories, ...data.map(item => ({text: item.name, value: item.id}))]);
-            });
-        axios
-            .get('https://frost.runtime.kz/api/brands')
-            .then(response => {
-                let data = response.data;
-                setBrands([...brands, ...data.map(item => ({text: item.name, value: item.id}))]);
-            })
+        dispatch(initializeFilter());
     }, []);
 
     function addModels(brand) {
-        setGenerations([{text: 'Все поколения', value: null}])
-        let models = [{text: 'Все модели', value: null}]
-        console.log('______model' + brand)
+        dispatch(setModelsState([{text: 'Все модели', value: null}]))
+        dispatch(setGenerationsState([{text: 'Все поколения', value: null}]))
         if (brand === null) {
-            setFilterParams({brandId: undefined, modelId: undefined, generationId: undefined});
+            dispatch(setFilter({brandId: undefined, modelId: undefined, generationId: undefined}));
         } else {
-            setFilterParams({...filterParams, brandId: brand, modelId: undefined, generationId: undefined});
-            axios
-                .get('https://frost.runtime.kz/api/models', {
-                    params: {
-                        brandId: brand,
-                    }
-                })
-                .then(response => {
-                    let data = response.data;
-                    models.push(...data.map(item => ({
-                        text: item.name,
-                        value: item.id
-                    })));
-                });
+            dispatch(setFilter({brandId: brand, modelId: undefined, generationId: undefined}));
+            dispatch(loadModelsByBrand(brand));
         }
-
-        setModels(models);
     }
 
-
     function addGenerations(model) {
-        let generations = [{text: 'Все поколения', value: null}];
+
+        dispatch(setGenerationsState([{text: 'Все поколения', value: null}]))
         if (model === null) {
-            setFilterParams({...filterParams, modelId: undefined, generationId: undefined});
+            dispatch(setFilter({...filter, modelId: undefined, generationId: undefined}));
         } else {
-            setFilterParams({...filterParams, modelId: model, generationId: undefined});
-            axios
-                .get('https://frost.runtime.kz/api/generations', {
-                    params: {
-                        modelId: model,
-                    }
-                })
-                .then(response => {
-                    let data = response.data;
-                    generations.push(...data.map(item => ({
-                        text: item.name,
-                        value: item.id
-                    })));
-                })
+            dispatch(setFilter({...filter, modelId: model, generationId: undefined}));
+            dispatch(loadGenerationsbyModel(model))
         }
-        setGenerations(generations);
     }
 
     function Generations(generation) {
-        setFilterParams({...filterParams, generationId: generation});
+        if (generation === null) {
+            dispatch(setFilter({...filter, generationId: undefined}));
+        } else {
+            dispatch(setFilter({...filter, generationId: generation}));
+        }
     }
-
-    useEffect(() => {
-        props.onFilterChange(filterParams);
-    }, [filterParams])
 
 
     function availableItems(checked) {
-        setFilterParams({...filterParams, available: checked});
+        dispatch(setFilter({...filter, available: checked}));
     }
 
     return (

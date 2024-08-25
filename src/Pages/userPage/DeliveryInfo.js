@@ -1,12 +1,10 @@
 import Input from "../../ui/input/Input";
 import Button, { buttonStyle } from "../../ui/button/Button";
 import './UserPage.css'
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import Dropdown from "../../ui/dropdown/Dropdown";
 import { Link, useParams } from "react-router-dom";
 function DeliveryInfo() {
-    const [user, login, logout] = useContext(AuthContext);
     const [countries, setCountries] = useState([{ text: 'Республика Казахстан' }, { text: 'Турция' }])
     const [regions, setRegions] = useState([{ text: 'Акмолинская область' }, { text: 'Восточно-Казахстанская область' }])
     return (

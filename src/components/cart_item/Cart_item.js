@@ -1,51 +1,25 @@
 import './Cart_item.css'
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {increaseCountById, decreaseCountById} from "../../features/cart/cartSlice";
+import {useDispatch} from "react-redux";
+import {decreaseCartItemCount, increaseCartItemCount} from "../../features/cart/cartAPI";
 
 function CartItem(props) {
-    const [numbCount, setNumbCount] = useState(props.item_count);
-    useEffect(() => {
-        props.onChangeCount(numbCount);
-    }, [numbCount]);
+    const dispatch=useDispatch();
 
     function Minus() {
-        axios.get('https://frost.runtime.kz/api/cart/decrease?productId=', {
-            params: {
-                productId: props.item_id,
-            },
-        })
+        decreaseCartItemCount(props.item_id)
             .then(()=>{
-                setNumbCount(function (prevState) {
-                    let newState = (prevState);
-                    if (newState !== 1) {
-                        newState -= 1;
-                    }
-                    return newState;
-                })
+                dispatch(decreaseCountById(props.item_id));
             })
-
     }
-
-    console.log('--- props ---');
-    console.log(props);
 
     function Plus() {
-        axios.get('https://frost.runtime.kz/api/cart/increase?productId=', {
-            params: {
-                productId: props.item_id,
-            },
-        })
+        increaseCartItemCount(props.item_id)
             .then(() => {
-                setNumbCount(function (prevState) {
-                    let newState = (prevState);
-                    newState += 1;
-                    return newState;
-                })
+                dispatch(increaseCountById(props.item_id));
             })
-
     }
 
-    console.log(props.count)
     return (
         <div>
             <div className='cart-item'>

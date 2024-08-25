@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import {Link} from "react-router-dom";
-import './Completion.css'
+import './Completion.css';
+import orderConfirmedImg from './img/Group.svg';
+
 function Completion(){
+    const orderState = useSelector(state=>state.orders);
     return(
         <div className='completion wrapper'>
             <div className='cart__ordering'>
@@ -15,9 +19,9 @@ function Completion(){
             <div className='completion__wrapp'>
                 <div className='contactDetails__title'>Заказ успешно создан</div>
                 <div className='completion__block'>
-                    <div className='completion__block-item'>image</div>
-                    <div className='completion__block-item'>info</div>
-                    <div className='completion__block-item'>link</div>
+                    <div className='completion__block-item'><img src={orderConfirmedImg}/></div>
+                    <div className='completion__block-item'>Заказ №{orderState.orderId} был создан. Вы можете просмотреть список всех ваших заказов в личном кабинете.</div>
+                    <Link to={'/my-orders'} className='completion__block-item-link'>Перейти в личный кабинет</Link>
                 </div>
             </div>
         </div>

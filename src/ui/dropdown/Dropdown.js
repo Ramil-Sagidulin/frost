@@ -22,7 +22,6 @@ function Dropdown(props) {
     }
 
     const [listProd, setListProd] = useState(props.items);
-
     let allItems = 'items';
     if (CloseOpenItems === true) {
         allItems += ' items-open';

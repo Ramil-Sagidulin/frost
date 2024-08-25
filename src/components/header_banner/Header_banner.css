@@ -1,10 +1,39 @@
 .header_banner{
-    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1920px;
     height: 500px;
     display: flex;
-    background: linear-gradient(180deg, #0E1935 0%, rgba(0, 0, 0, 0.45) 100%);
 }
-.header_bottom__banner{
-    margin: 0 auto;
-    
+
+.arrow-left{
+    cursor: pointer;
+    background-image: url(./img/Slider\ arrowL.png);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    align-self: center;
+    left: 10px;
+}
+.arrow-left:hover{
+    left: 12px;
+}
+.arrow-right{
+    cursor: pointer;
+    background-image: url(./img/Slider\ arrowR.png);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    align-self: center;
+    right: 10px;
+}
+.arrow-right:hover{
+    right: 12px;
+}
+.banner{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;	
 }

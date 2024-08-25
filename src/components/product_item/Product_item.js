@@ -3,7 +3,7 @@ import './Product_item.css'
 import item_img from './img/Заглушка.png'
 import ModalProduct from "../ModalProduct/ModalProduct";
 import useModal from "../../hooks/useModal";
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Product_item(props) {
     const [visible, open, close] = useModal();

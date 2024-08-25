@@ -1,24 +1,31 @@
 import './Header.css'
 import logo from "./img/Frost logo.svg";
 import basket from "./img/basket.svg";
-import Modal from "../Modal/Modal";
-import Input from "../../ui/input/Input";
-import Button, { buttonStyle } from "../../ui/button/Button";
 import useModal from "../../hooks/useModal";
 import ModalAuthorization from "../modal_authorization/ModalAuthorization";
 import { Link } from "react-router-dom";
 import ModalRegistration from '../modal_registration/ModalRegistration';
 import {useDispatch, useSelector} from "react-redux";
-import { signOut } from '../../features/auth/authSlice';
+import { signOutAuth } from '../../features/auth/authSlice';
+import {setProductCountInCart} from "../../features/cart/cartSlice";
+import {useEffect} from "react";
 
 function Header() {
 
     const [visibleLogin, openLogin, closeLogin] = useModal();
     const [visibleRegistration, openRegistration, closeRegistration] = useModal();
-
-    const dispatch = useDispatch();
-
+    const productCount = useSelector(state=>state.cart.productCount);
     const authState = useSelector(state => state.auth);
+    const cartCount = useSelector(state => state.cart.cartItem);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setProductCountInCart(cartCount.length))
+
+    }, [cartCount])
+    function signOut(){
+        dispatch(signOutAuth());
+        dispatch(setProductCountInCart(0));
+    }
 
     return (
         <div className='header'>
@@ -40,10 +47,10 @@ function Header() {
                     </div>
                     {!authState.user ?
                         <div className='header__authorization'>
-                            <div className='header__log-in authorization' onClick={openLogin}>Вход в личный
+                            <div className='header__log-in authorization' id='signIn-button' onClick={openLogin }>Вход в личный
                                 кабинет
                             </div>
-                            <div className='header__register authorization'
+                            <div className='header__register authorization' id='registration-button'
                                 onClick={openRegistration}>Зарегистрироваться
                             </div>
                         </div>
@@ -54,10 +61,11 @@ function Header() {
                                 <div className='headerAuthUser__lastName'>{authState.user.lastName}</div>
                             </Link>
 
-                            <div className='headerAuthUser__logout' onClick={() => dispatch(signOut())}>Выход</div>
+                            <div className='headerAuthUser__logout' onClick={signOut}>Выход</div>
                         </div>}
 
-                    <Link to={'/second'} className='header__basket'><img src={basket} alt="Logo" /></Link>
+                    <Link to={'/second'} className='header__basket'><img src={basket} alt="Logo" />
+                    {productCount===0?'':<div>{productCount}</div>}</Link>
                 </div>
 
             </div>
